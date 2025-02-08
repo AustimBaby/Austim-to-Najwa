@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Austim to Najwa ❤️</title>
+    
+    <!-- Importing Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            text-align: center;
+            background-color: #ffe4e1; /* Soft pastel pink */
+            color: #d00000;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.5s;
+            padding: 50px;
+            overflow: hidden;
+        }
+
+        .title {
+            font-size: 42px;
+            font-weight: 600;
+            color: #ff4d6d;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .content {
+            font-size: 22px;
+            color: #c02424;
+            max-width: 600px;
+            margin: auto;
+            line-height: 1.5;
+            animation: slideIn 1.5s ease-in-out;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 20px;
+            font-weight: 500;
+            color: white;
+            background-color: #ff6b81;
+            text-decoration: none;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .button:hover {
+            background-color: #ff4d6d;
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        img {
+            width: 300px;
+            border-radius: 15px;
+            margin: 20px 0;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        #loveMessage {
+            font-size: 30px;
+            font-weight: bold;
+            color: #ff4d6d;
+            margin-top: 20px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1 -->
+    <div id="page1">
+        <h1 class="title">From Austim to Najwa ❤️</h1>
+        <img src="images/bear.png" alt="A Cute Bear">
+        <br>
+        <button class="button" onclick="nextPage(2)">Next</button>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div id="page2" class="hidden">
+        <p class="content">It has been several months since we met, and only several weeks since we became a thing.</p>
+        <p class="content">But it's been the most pleasant experience of my entire life. I've done things I never thought I would, and said even crazier things.</p>
+        <p class="content">And truthfully, it's been really confusing.</p>
+        <p class="content">But I do know that the only things I'm sure of are my feelings for you.</p>
+        <br>
+        <button class="button" onclick="nextPage(3)">Next</button>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div id="page3" class="hidden">
+        <h1 class="content">So...</h1>
+        <br>
+        <img src="images/minion.png" alt="Bob the Minion">
+        <br>
+        <button class="button" onclick="nextPage(4)">Next</button>
+    </div>
+
+    <!-- PAGE 4 (FINAL) -->
+    <div id="page4" class="hidden">
+        <h1 class="content">Will You Be My Valentine, baby? 💖</h1>
+        <button class="button" onclick="showLove()">Yes</button>
+        <button class="button" onclick="showLove()">Yes</button>
+
+        <h2 id="loveMessage">YAY! I love you! ❤️</h2>
+    </div>
+
+    <script>
+        function nextPage(pageNumber) {
+            document.getElementById("page1").classList.add("hidden");
+            document.getElementById("page2").classList.add("hidden");
+            document.getElementById("page3").classList.add("hidden");
+            document.getElementById("page4").classList.add("hidden");
+            
+            document.getElementById("page" + pageNumber).classList.remove("hidden");
+        }
+
+        function showLove() {
+            let message = document.getElementById("loveMessage");
+            message.style.opacity = "1";
+            message.style.transform = "scale(1)";
+
+            // Trigger Confetti
+            confetti();
+        }
+
+        function confetti() {
+            const duration = 3 * 1000;
+            const animationEnd = Date.now() + duration;
+            const colors = ['#ff6b81', '#ff4d6d', '#f9c6c9'];
+
+            (function frame() {
+                const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return;
+
+                const particle = document.createElement("div");
+                particle.style.position = "fixed";
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = "-10px";
+                particle.style.width = "10px";
+                particle.style.height = "10px";
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.opacity = "0.7";
+                particle.style.borderRadius = "50%";
+                particle.style.zIndex = "1000";
+                document.body.appendChild(particle);
+
+                let speed = Math.random() * 3 + 2;
+                let angle = Math.random() * 20 - 10;
+                let xPos = Math.random() * 200 - 100;
+                let duration = Math.random() * 3 + 2;
+
+                particle.animate([
+                    { transform: `translate(${xPos}px, 0) rotate(${angle}deg)`, opacity: 1 },
+                    { transform: `translate(${xPos}px, 100vh) rotate(${angle * 2}deg)`, opacity: 0 }
+                ], { duration: duration * 1000, easing: "ease-out", fill: "forwards" });
+
+                setTimeout(() => document.body.removeChild(particle), duration * 1000);
+                requestAnimationFrame(frame);
+            })();
+        }
+    </script>
+
+</body>
+</html>
