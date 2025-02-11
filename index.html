@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Surprise</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.0"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -98,8 +99,25 @@
         
         function yes() {
             document.querySelector(".container").innerHTML = `<h1>Yay! I love you! ❤️</h1>`;
+            launchConfetti();
         }
-        
+
+        function launchConfetti() {
+            var duration = 3 * 1000; // Confetti lasts for 3 seconds
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    spread: 160
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+
         function showAreYouSure() {
             document.querySelector(".container").innerHTML = `
                 <h1>Are you sure?</h1>
